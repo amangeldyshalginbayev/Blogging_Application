@@ -84,7 +84,9 @@ def save_picture(form_picture):
 
     return picture_fn
 
-
+def remove_picture(picture_name):
+    picture_path = os.path.join(app.root_path, 'static/profile_pics', picture_name)
+    os.remove(picture_path)
 
 @app.route('/account', methods=['GET', 'POST'])
 @login_required
@@ -93,6 +95,8 @@ def account():
     if form.validate_on_submit():
         if form.picture.data:
             picture_file = save_picture(form.picture.data)
+            old_picture = current_user.image_file
+            remove_picture(old_picture)
             current_user.image_file = picture_file
         current_user.username = form.username.data
         current_user.email = form.email.data
@@ -105,21 +109,3 @@ def account():
     image_file = url_for('static', filename='profile_pics/' + current_user.image_file)
     return render_template("account.html", title = "Account", 
                             image_file=image_file, form=form)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
