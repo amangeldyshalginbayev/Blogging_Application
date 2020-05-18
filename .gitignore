@@ -1,5 +1,7 @@
 __pycache__
 venv
 *.db
-*[.jpg, .jpeg, .png]
+*.jpg
+*.jpeg
+*.png
 !flaskblog/static/profile_pics/default.jpg
