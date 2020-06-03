@@ -18,6 +18,47 @@
             <p class="article-content">{{ post.content }}</p>
         </div>
     </article>
+
+    <form method="POST" action="">
+            {{ form.hidden_tag() }}
+            <fieldset class="form-group">
+                <div class="form-group">
+                    {{ form.content.label("Enter your comment here: ") }}
+                    
+                    {% if form.content.errors %}
+                        {{ form.content(class="form-control form-control-lg is-invalid") }}
+                        <div class="invalid-feedback">
+                            {% for error in form.content.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        {{ form.content(class="form-control form-control-lg") }}
+                    {% endif %}
+                </div>
+            </fieldset>
+            <div class="form-group">
+                {{ form.submit(class="btn btn-outline-info") }}  
+            </div>
+    </form>
+
+    {% if comments %}
+        <h5>Comments to the post: </h5>
+        {% for comment in comments %}
+            <article class="media content-section">
+                <img class="rounded-circle article-img" src="{{ url_for('static', filename='profile_pics/' + comment.author.image_file) }}">
+                <div class="media-body">
+                    <div class="article-metadata">
+                        <a class="mr-2" href="{{ url_for('users.user_posts', username=comment.author.username) }}">{{ comment.author.username }}</a> says on: 
+                        <small class="text-muted">{{ comment.date_commented.strftime('%Y-%m-%d') }}</small>
+                    </div>
+                    <p class="article-content">{{ comment.content }}</p>
+                </div>
+            </article>
+        {% endfor %}
+    {% else %}
+        <h5>This post has no comments! Comment it;-)</h5>
+    {% endif %}
     
     <!-- Modal -->
     <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
