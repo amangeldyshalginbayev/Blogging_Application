@@ -51,6 +51,13 @@
                     <div class="article-metadata">
                         <a class="mr-2" href="{{ url_for('users.user_posts', username=comment.author.username) }}">{{ comment.author.username }}</a> says on: 
                         <small class="text-muted">{{ comment.date_commented.strftime('%Y-%m-%d') }}</small>
+
+                        {% if current_user == comment.author %}
+                            <a href=" {{ url_for('comments.update_delete_comment', comment_id=comment.id) }} ">Edit comment</a>
+                        {% else %}
+                        
+                        {% endif %}
+
                     </div>
                     <p class="article-content">{{ comment.content }}</p>
                 </div>
