@@ -27,7 +27,7 @@ def remove_picture(picture_name):
 
 
 def send_reset_email(user):
-    token = user.get_reset_token()
+    token = user.get_token()
     msg = Message('Password Reset Request. Do not reply to this email', 
                    recipients=[user.email])
     msg.body = f'''Hi! To reset your password, visit the following link:
@@ -36,3 +36,24 @@ def send_reset_email(user):
 If you did not make this request then simply ignore this email and no changes will be made.
 '''
     mail.send(msg)
+
+def send_activation_email(user):
+    token = user.get_token()
+    msg = Message('Account activation. Do not reply to this email',
+                    recipients=[user.email])
+    msg.body = f'''Hi! Please visit the following link to activate your account:
+{url_for('users.activate_account', token = token, _external = True)}
+
+If you did not register an account in our service then simply ignore this email.
+'''
+    mail.send(msg)
+
+
+
+
+
+
+
+
+
+
