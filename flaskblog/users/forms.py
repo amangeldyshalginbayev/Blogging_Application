@@ -4,6 +4,7 @@ from wtforms import StringField, PasswordField, SubmitField, BooleanField
 from wtforms.validators import DataRequired, Length, Email, EqualTo, ValidationError
 from flask_login import current_user
 from flaskblog.models import User
+from flaskblog.users.utils import is_password_valid
 
 
 
@@ -27,6 +28,12 @@ class RegistrationForm(FlaskForm):
         user = User.query.filter_by(email=email.data).first()
         if user:
             raise ValidationError('That email is taken. Please choose a different one.')
+
+    def validate_password(self, password):
+        if not is_password_valid(password.data):
+            message = ('Password must be 8-12 characters long and contain ' 
+                        'uppcercase and lowercase letters, number and symbol')
+            raise ValidationError(message)
 
 
 class LoginForm(FlaskForm):
@@ -77,6 +84,12 @@ class ResetPasswordForm(FlaskForm):
     confirm_password = PasswordField('Confirm Password',
                                     validators=[DataRequired(), EqualTo('password')])
     submit = SubmitField('Reset Password')
+
+    def validate_password(self, password):
+        if not is_password_valid(password.data):
+            message = ('Password must be 8-12 characters long and contain ' 
+                        'uppcercase and lowercase letters, number and symbol')
+            raise ValidationError(message)
 
 
     
