@@ -168,3 +168,28 @@ def confirm_mobile_phone():
     return render_template("confirm_mobile_phone.html", form = form)
 
 
+@users.route('/like/<int:post_id>/<action>')
+@login_required
+def like_action(post_id, action):
+    post = Post.query.filter_by(id=post_id).first_or_404()
+    if action == 'like':
+        current_user.like_post(post)
+        db.session.commit()
+        flash('You liked the post!', 'alert alert-primary')
+    elif action == 'dislike':
+        current_user.unlike_post(post)
+        db.session.commit()
+        flash('You disliked the post!', 'alert alert-warning')
+    return redirect(request.referrer)
+
+
+
+
+
+
+
+
+
+
+
+
