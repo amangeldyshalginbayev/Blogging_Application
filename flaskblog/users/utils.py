@@ -67,12 +67,12 @@ def is_password_valid(password):
 
     return is_valid
 
-
-
-
-
-
-
+def is_mobile_phone_valid(number):
+    is_valid = False
+    pattern = r"^\+[1-9]\d{1,14}$"
+    if re.search(pattern, number):
+        is_valid = True
+    return is_valid
 
 
 

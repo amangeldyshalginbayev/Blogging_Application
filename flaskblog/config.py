@@ -10,4 +10,6 @@ class Config:
     MAIL_USE_TLS = True
     MAIL_USERNAME = os.environ.get('EMAIL_USER')
     MAIL_PASSWORD = os.environ.get('EMAIL_PASS')
-    MAIL_DEFAULT_SENDER = ("Flask Blog", "flaskblog-noreply@demo.com")
+    MAIL_DEFAULT_SENDER = ('Flask Blog', 'flaskblog-noreply@demo.com')
+    MESSENTE_API_USERNAME = os.environ.get('MESSENTE_API_USERNAME')
+    MESSENTE_API_PASSWORD = os.environ.get('MESSENTE_API_PASSWORD')

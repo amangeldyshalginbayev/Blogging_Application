@@ -1,10 +1,12 @@
-from flask import render_template, url_for, flash, redirect, request, Blueprint
+from flask import render_template, url_for, flash, redirect, request, session, Blueprint
 from flask_login import login_user, current_user, logout_user, login_required
 from flaskblog import db, bcrypt
 from flaskblog.models import User, Post
 from flaskblog.users.forms import (RegistrationForm, LoginForm, UpdateAccountForm,
-                                   RequestResetForm, ResetPasswordForm)
+                                   RequestResetForm, ResetPasswordForm, MobilePhoneEntryForm,
+                                   ConfirmMobilePhoneForm)
 from flaskblog.users.utils import save_picture, remove_picture, send_reset_email, send_activation_email
+from flaskblog.users.messente_messaging import send_sms_pin
 
 
 
@@ -130,9 +132,38 @@ def activate_account(token):
         return redirect(url_for('users.login'))
 
 
+@users.route('/link_mobile_phone', methods=['GET', 'POST'])
+@login_required
+def link_mobile_phone():
+    form = MobilePhoneEntryForm()
+    if form.validate_on_submit():
+        full_number = form.country_code.data + form.phone_number.data
+        pin_code = send_sms_pin(full_number)
+        if pin_code:
+            session['pin_code'] = pin_code
+            session['phone_number'] = full_number
+            flash('We have sent PIN code to your number', 'success')
+            return redirect(url_for('users.confirm_mobile_phone'))
+        else:
+            flash('We were not able to deliver sms to you. Please try again later.', 'danger')
+    return render_template("link_mobile_number.html", form = form)
 
 
-
-
+@users.route('/confirm_mobile_phone', methods=['GET', 'POST'])
+@login_required
+def confirm_mobile_phone():
+    form = ConfirmMobilePhoneForm()
+    pin_code = session.get('pin_code', None)
+    phone_number = session.get('phone_number', None)
+    if pin_code and phone_number and form.validate_on_submit():
+        if pin_code == int(form.pin_code.data):
+            current_user.mobile_phone = phone_number
+            db.session.commit()
+            flash('Your mobile phone number is confirmed', 'success')
+            return redirect(url_for('users.account'))
+        else:
+            flash('You entered incorrect PIN, try again.', 'danger')
+            return redirect(url_for('users.link_mobile_phone'))
+    return render_template("confirm_mobile_phone.html", form = form)
 
 

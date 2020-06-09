@@ -1,10 +1,10 @@
 from flask_wtf import FlaskForm
 from flask_wtf.file import FileField, FileAllowed
-from wtforms import StringField, PasswordField, SubmitField, BooleanField
-from wtforms.validators import DataRequired, Length, Email, EqualTo, ValidationError
+from wtforms import StringField, PasswordField, SubmitField, BooleanField, SelectField
+from wtforms.validators import DataRequired, Length, Email, EqualTo, Regexp, ValidationError
 from flask_login import current_user
 from flaskblog.models import User
-from flaskblog.users.utils import is_password_valid
+from flaskblog.users.utils import is_password_valid, is_mobile_phone_valid
 
 
 
@@ -52,6 +52,8 @@ class UpdateAccountForm(FlaskForm):
                         validators=[DataRequired(), Email()])
     picture = FileField('Update Profile Picture', validators=[FileAllowed(['jpg', 'png', 'jpeg'])])
 
+    mobile_phone = StringField('Mobile_phone')
+
     submit = SubmitField('Update')
 
     def validate_username(self, username):
@@ -91,5 +93,22 @@ class ResetPasswordForm(FlaskForm):
                         'uppcercase and lowercase letters, number and symbol')
             raise ValidationError(message)
 
+class MobilePhoneEntryForm(FlaskForm):
+    country_code = SelectField('Select your country: ', choices=[('+372', 'Estonia'), 
+                                                                 ('+7','Kazakhstan'),
+                                                                 ('+44', 'United Kingdom')])
+    phone_number = StringField('Enter your mobile number: ', validators=[DataRequired()])
+    submit = SubmitField('Link my number')
 
-    
+
+    def validate_phone_number(self, phone_number):
+        full_number = self.country_code.data + self.phone_number.data
+        if not is_mobile_phone_valid(full_number):
+            raise ValidationError('Invalid mobile phone number.')
+
+class ConfirmMobilePhoneForm(FlaskForm):
+    pin_code = StringField('Enter PIN code: ', validators=[DataRequired(), 
+                                                Regexp(regex=r'^[1-9][0-9]{3}$', message='Invalid PIN')])
+    submit = SubmitField('Submit')
+
+
