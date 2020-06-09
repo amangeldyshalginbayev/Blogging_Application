@@ -2,10 +2,11 @@ from flask import render_template, url_for, flash, redirect, request, session, B
 from flask_login import login_user, current_user, logout_user, login_required
 from flaskblog import db, bcrypt
 from flaskblog.models import User, Post
-from flaskblog.users.forms import (RegistrationForm, LoginForm, UpdateAccountForm,
+from flaskblog.users.forms import (RegistrationForm, LoginForm,UpdateAccountForm,
                                    RequestResetForm, ResetPasswordForm, MobilePhoneEntryForm,
                                    ConfirmMobilePhoneForm)
-from flaskblog.users.utils import save_picture, remove_picture, send_reset_email, send_activation_email
+from flaskblog.users.utils import (save_picture, remove_picture, send_reset_email, 
+                                   send_activation_email)
 from flaskblog.users.messente_messaging import send_sms_pin
 
 

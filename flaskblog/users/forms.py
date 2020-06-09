@@ -14,7 +14,7 @@ class RegistrationForm(FlaskForm):
     email = StringField('Email',
                         validators=[DataRequired(), Email()])
     password = PasswordField('Password',
-                            validators=[DataRequired()])
+                            validators=[DataRequired(), Length(min=8, max=12)])
     confirm_password = PasswordField('Confirm Password',
                                     validators=[DataRequired(), EqualTo('password')])
     submit = SubmitField('Sign Up')
@@ -31,8 +31,7 @@ class RegistrationForm(FlaskForm):
 
     def validate_password(self, password):
         if not is_password_valid(password.data):
-            message = ('Password must be 8-12 characters long and contain ' 
-                        'uppcercase and lowercase letters, number and symbol')
+            message = ('Password must contain uppcercase and lowercase letters, number and symbol')
             raise ValidationError(message)
 
 
@@ -51,9 +50,6 @@ class UpdateAccountForm(FlaskForm):
     email = StringField('Email',
                         validators=[DataRequired(), Email()])
     picture = FileField('Update Profile Picture', validators=[FileAllowed(['jpg', 'png', 'jpeg'])])
-
-    mobile_phone = StringField('Mobile_phone')
-
     submit = SubmitField('Update')
 
     def validate_username(self, username):
@@ -82,15 +78,14 @@ class RequestResetForm(FlaskForm):
 
 class ResetPasswordForm(FlaskForm):
     password = PasswordField('Password',
-                            validators=[DataRequired()])
+                            validators=[DataRequired(), Length(min=8, max=12)])
     confirm_password = PasswordField('Confirm Password',
                                     validators=[DataRequired(), EqualTo('password')])
     submit = SubmitField('Reset Password')
 
     def validate_password(self, password):
         if not is_password_valid(password.data):
-            message = ('Password must be 8-12 characters long and contain ' 
-                        'uppcercase and lowercase letters, number and symbol')
+            message = ('Password must contain uppcercase and lowercase letters, number and symbol')
             raise ValidationError(message)
 
 class MobilePhoneEntryForm(FlaskForm):

@@ -18,7 +18,6 @@ def save_picture(form_picture):
     i = Image.open(form_picture)
     i.thumbnail(output_size)
     i.save(picture_path)
-
     return picture_fn
 
 
@@ -38,6 +37,7 @@ If you did not make this request then simply ignore this email and no changes wi
 '''
     mail.send(msg)
 
+
 def send_activation_email(user):
     token = user.get_token()
     msg = Message('Account activation. Do not reply to this email',
@@ -49,23 +49,21 @@ If you did not register an account in our service then simply ignore this email.
 '''
     mail.send(msg)
 
+
 def is_password_valid(password):
     is_valid = False
-    min_length = 8
-    max_length = 12
     uppercase = r"[A-Z]"
     lowercase = r"[a-z]"
     number = r"[0-9]"
     non_alphanumeric = r"\W"
-
-    if len(password) >= min_length and len(password) <= max_length:
-        for pattern in (uppercase, lowercase, number, non_alphanumeric):
-            if not re.search(pattern, password):
-                break
-        else:
-            is_valid = True
-
+    
+    for pattern in (uppercase, lowercase, number, non_alphanumeric):
+        if not re.search(pattern, password):
+            break
+    else:
+        is_valid = True
     return is_valid
+
 
 def is_mobile_phone_valid(number):
     is_valid = False
@@ -73,7 +71,4 @@ def is_mobile_phone_valid(number):
     if re.search(pattern, number):
         is_valid = True
     return is_valid
-
-
-
 
