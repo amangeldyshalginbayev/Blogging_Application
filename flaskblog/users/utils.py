@@ -8,21 +8,26 @@ from flaskblog import mail
 
 
 
-def save_picture(form_picture):
+def save_picture(form_picture, directory='static/profile_pics'):
     random_hex = secrets.token_hex(8)
     _, f_ext = os.path.splitext(form_picture.filename)
     picture_fn = random_hex + f_ext
-    picture_path = os.path.join(current_app.root_path, 'static/profile_pics', picture_fn)
+    picture_path = os.path.join(current_app.root_path, directory, picture_fn)
     
-    output_size = (125, 125)
     i = Image.open(form_picture)
-    i.thumbnail(output_size)
+
+    # Here we need to resize image, if we are using it for profile_picture.
+    # If we are using it for post image, no need to resize the image.
+    if directory == 'static/profile_pics':
+        output_size = (125, 125)
+        i.thumbnail(output_size)
+    
     i.save(picture_path)
     return picture_fn
 
 
-def remove_picture(picture_name):
-    picture_path = os.path.join(current_app.root_path, 'static/profile_pics', picture_name)
+def remove_picture(picture_name, directory='static/profile_pics'):
+    picture_path = os.path.join(current_app.root_path, directory, picture_name)
     os.remove(picture_path)
 
 

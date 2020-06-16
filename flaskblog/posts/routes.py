@@ -5,6 +5,7 @@ from flaskblog import db
 from flaskblog.models import Post, Comment
 from flaskblog.posts.forms import PostForm
 from flaskblog.comments.forms import CommentForm
+from flaskblog.users.utils import save_picture, remove_picture
 
 
 
@@ -16,8 +17,13 @@ posts = Blueprint('posts', __name__)
 def new_post():
     form = PostForm()
     if form.validate_on_submit():
-        post = Post(title=form.title.data, content=form.content.data, author=current_user)
-        db.session.add(post)
+        print(form.image.data)
+        if form.image.data:
+            post_image = save_picture(form.image.data, directory='static/post_image')
+            post = Post(title=form.title.data, content=form.content.data, author=current_user, image_file=post_image)
+        else:
+            post = Post(title=form.title.data, content=form.content.data, author=current_user)
+        db.session.add(post)   
         db.session.commit()
         flash('Your post has been created!', 'success')
         return redirect(url_for('main.home'))
@@ -53,6 +59,14 @@ def update_post(post_id):
     form = PostForm()
 
     if form.validate_on_submit():
+        if form.image.data:
+            post_image = save_picture(form.image.data, directory='static/post_image')
+            # if post alredy has image, remove it
+            if post.image_file:
+                old_image = post.image_file
+                remove_picture(old_image, directory='static/post_image')
+            post.image_file = post_image
+            
         post.title = form.title.data
         post.content = form.content.data
         db.session.commit()

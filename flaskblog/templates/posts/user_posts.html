@@ -12,6 +12,11 @@
                 </div>
                 <h2><a class="article-title" href="{{ url_for('posts.post', post_id = post.id) }}">{{ post.title }}</a></h2>
                 <p class="article-content">{{ post.content }}</p>
+                {% if post.image_file %}
+                <img src="{{ url_for('static', filename='post_image/' + post.image_file) }}" class="img-fluid" alt="Responsive image">
+                {% else %}
+
+                {% endif %}
                 {% if post.number_of_likes() %}
                     <p><em>This post has been liked <b>{{ post.number_of_likes() }}</b> times.</em></p>
                 {% else %}
