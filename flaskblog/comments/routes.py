@@ -32,7 +32,7 @@ def update_delete_comment(comment_id):
     elif request.method == 'GET':
         form.content.data = comment.content
 
-    return render_template("comment.html", comment = comment, form = form)
+    return render_template("comments/comment.html", comment = comment, form = form)
 
 
 

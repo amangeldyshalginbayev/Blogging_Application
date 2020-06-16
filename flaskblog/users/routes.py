@@ -27,7 +27,7 @@ def register():
         send_activation_email(user)
         flash('Your account has been created! Account activation link is sent to your email', 'success')
         return redirect(url_for('users.login'))
-    return render_template("register.html", title = "Register", form = form)
+    return render_template("users/register.html", title = "Register", form = form)
 
 
 @users.route('/login', methods=['GET', 'POST'])
@@ -46,7 +46,7 @@ def login():
             flash('You need to activate your account to login. Activation link has been sent to your email', 'danger')
         else:
             flash('Login Unsuccessful. Please check email and password', 'danger')
-    return render_template("login.html", title = "Login", form = form)
+    return render_template("users/login.html", title = "Login", form = form)
 
 
 @users.route('/logout')
@@ -75,7 +75,7 @@ def account():
         form.username.data = current_user.username
         form.email.data = current_user.email
     image_file = url_for('static', filename='profile_pics/' + current_user.image_file)
-    return render_template("account.html", title = "Account", 
+    return render_template("users/account.html", title = "Account", 
                             image_file = image_file, form = form)
 
 
@@ -86,7 +86,7 @@ def user_posts(username):
     posts = Post.query.filter_by(author=user)\
         .order_by(Post.date_posted.desc())\
         .paginate(page=page, per_page=5)
-    return render_template("user_posts.html", posts = posts, user = user)
+    return render_template("posts/user_posts.html", posts = posts, user = user)
 
 
 @users.route('/reset_password', methods=['GET', 'POST'])
@@ -99,7 +99,7 @@ def reset_request():
         send_reset_email(user)
         flash('An email has been sent with instructions to reset your password.', 'info')
         return redirect(url_for('users.login'))
-    return render_template("reset_request.html", title = "Reset Password", form = form)
+    return render_template("users/reset_request.html", title = "Reset Password", form = form)
 
 
 @users.route('/reset_password/<token>', methods=['GET', 'POST'])
@@ -117,7 +117,7 @@ def reset_token(token):
         db.session.commit()
         flash('Your password has been updated! You are now able to log in', 'success')
         return redirect(url_for('users.login'))
-    return render_template("reset_token.html", title = "Reset Password", form = form)
+    return render_template("users/reset_token.html", title = "Reset Password", form = form)
 
 
 @users.route('/activate_account/<token>', methods=['GET', 'POST'])
@@ -147,7 +147,7 @@ def link_mobile_phone():
             return redirect(url_for('users.confirm_mobile_phone'))
         else:
             flash('We were not able to deliver sms to you. Please try again later.', 'danger')
-    return render_template("link_mobile_number.html", form = form)
+    return render_template("users/link_mobile_number.html", form = form)
 
 
 @users.route('/confirm_mobile_phone', methods=['GET', 'POST'])
@@ -165,7 +165,7 @@ def confirm_mobile_phone():
         else:
             flash('You entered incorrect PIN, try again.', 'danger')
             return redirect(url_for('users.link_mobile_phone'))
-    return render_template("confirm_mobile_phone.html", form = form)
+    return render_template("users/confirm_mobile_phone.html", form = form)
 
 
 @users.route('/like/<int:post_id>/<action>')

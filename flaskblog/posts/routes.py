@@ -21,7 +21,7 @@ def new_post():
         db.session.commit()
         flash('Your post has been created!', 'success')
         return redirect(url_for('main.home'))
-    return render_template("create_post.html", title = "New Post", 
+    return render_template("posts/create_post.html", title = "New Post", 
                             form = form, legend="New Post")
 
 
@@ -41,7 +41,7 @@ def post(post_id):
 
     comments_of_post = Comment.query.filter_by(post_id=post.id).order_by(Comment.date_commented.desc()).all()
     
-    return render_template("post.html", title = post.title, post = post, form = form, comments = comments_of_post)
+    return render_template("posts/post.html", title = post.title, post = post, form = form, comments = comments_of_post)
 
 
 @posts.route('/post/<int:post_id>/update', methods=['GET', 'POST'])
@@ -63,7 +63,7 @@ def update_post(post_id):
         form.title.data = post.title
         form.content.data = post.content
 
-    return render_template("create_post.html", title = "Update Post", 
+    return render_template("posts/create_post.html", title = "Update Post", 
                             form = form, legend="Update Post")
 
 
