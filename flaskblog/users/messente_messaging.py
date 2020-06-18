@@ -6,13 +6,12 @@ from flask import current_app
 
 
 
-configuration = Configuration()
-configuration.username = ""
-configuration.password = ""
-
-api_instance = OmnimessageApi(ApiClient(configuration))
-
 def send_sms_pin(recipient_phone_number):
+
+    configuration = Configuration()
+    configuration.username = current_app.config['MESSENTE_API_USERNAME']
+    configuration.password = current_app.config['MESSENTE_API_PASSWORD']
+    api_instance = OmnimessageApi(ApiClient(configuration))
 
     pin_code = randint(1000,9999)
 

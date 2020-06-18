@@ -24,8 +24,14 @@ def register():
         user = User(username=form.username.data, email=form.email.data, password=hashed_password)
         db.session.add(user)
         db.session.commit()
-        send_activation_email(user)
-        flash('Your account has been created! Account activation link is sent to your email', 'success')
+        try:
+            send_activation_email(user)
+        except Exception: 
+            flash('We were not able to deliver email to you. Try again.', 'danger')
+            db.session.delete(user)
+            db.session.commit()
+        else:
+            flash('Your account has been created! Account activation link is sent to your email', 'success')
         return redirect(url_for('users.login'))
     return render_template("users/register.html", title = "Register", form = form)
 

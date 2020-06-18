@@ -5,7 +5,7 @@ from flask_migrate import Migrate
 from flask_bcrypt import Bcrypt
 from flask_login import LoginManager
 from flask_mail import Mail
-from flaskblog.config import Config
+from flaskblog.config import Config, TestConfig
 
 
 
@@ -18,10 +18,14 @@ mail = Mail()
 migrate = Migrate()
 
 
-def create_app(config_class=Config):
+def create_app(mode="prod"):
+    config_class = Config
+    if mode == "test":
+        config_class = TestConfig
     app = Flask(__name__)
-    app.config.from_object(Config)
-
+    app.config.from_object(config_class)
+    app.config.from_pyfile('sensitive_config.cfg')
+    
     db.init_app(app)
     bcrypt.init_app(app)
     login_manager.init_app(app)
@@ -41,3 +45,6 @@ def create_app(config_class=Config):
     app.register_blueprint(errors)
 
     return app
+
+
+
