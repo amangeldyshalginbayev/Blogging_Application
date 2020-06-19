@@ -27,12 +27,16 @@
                 <p><em>This post has not been liked yet. Like it!</em></p>
             {% endif %}
             <div class="float-right">
-                {% if current_user.has_liked_post(post) %}
-                    <a href=" {{ url_for('users.like_action', post_id = post.id, action = 'dislike') }} "><img src="{{ url_for('static', filename='icons/dislike.svg') }}">
-                    </a>
+                {% if current_user.is_authenticated %}
+                    {% if current_user.has_liked_post(post) %}
+                        <a href=" {{ url_for('users.like_action', post_id = post.id, action = 'dislike') }} "><img src="{{ url_for('static', filename='icons/dislike.svg') }}">
+                        </a>
+                    {% else %}
+                        <a href=" {{ url_for('users.like_action', post_id = post.id, action = 'like') }} "><img src="{{ url_for('static', filename='icons/like.svg') }}">
+                        </a>
+                    {% endif %}
                 {% else %}
-                    <a href=" {{ url_for('users.like_action', post_id = post.id, action = 'like') }} "><img src="{{ url_for('static', filename='icons/like.svg') }}">
-                    </a>
+
                 {% endif %}
             </div>
         </div>
