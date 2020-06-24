@@ -4,9 +4,9 @@ from wtforms import StringField, SubmitField, TextAreaField
 from wtforms.validators import DataRequired
 
 
-
 class PostForm(FlaskForm):
     title = StringField('Title', validators=[DataRequired()])
     content = TextAreaField('Content', validators=[DataRequired()])
-    image = FileField('Attach image to your post', validators=[FileAllowed(['jpg', 'png', 'jpeg'])])
+    image = FileField('Attach image to your post',
+                      validators=[FileAllowed(['jpg', 'png', 'jpeg'])])
     submit = SubmitField('Post')

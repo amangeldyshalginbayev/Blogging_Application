@@ -2,18 +2,20 @@
 
 {% block content %}
     <div class="content-section">
-      <div class="media">
-        <img class="rounded-circle account-img" src="{{ image_file }}">
-        <div class="media-body">
-          <h2 class="account-heading">{{ current_user.username }}</h2>
-          <p class="text-secondary">{{ current_user.email }}</p>
-          {% if current_user.mobile_phone %}
-          <p>Your account has linked to {{ current_user.mobile_phone }}</p>
-          {% else %}
-          <p>Your account has not linked to any mobile phone number</p>
-          {% endif %}
+        <div class="media">
+            <img class="rounded-circle account-img" src="{{ image_file }}">
+            <div class="media-body">
+                <h2 class="account-heading">{{ current_user.username }}</h2>
+                <p class="text-secondary">{{ current_user.email }}</p>
+                {% if current_user.mobile_phone %}
+                    <p>Your account has linked
+                        to {{ current_user.mobile_phone }}</p>
+                {% else %}
+                    <p>Your account has not linked to any mobile phone
+                        number</p>
+                {% endif %}
+            </div>
         </div>
-      </div>
         <form method="POST" action="" enctype="multipart/form-data">
             {{ form.hidden_tag() }}
             <fieldset class="form-group">
@@ -34,7 +36,7 @@
                 </div>
                 <div class="form-group">
                     {{ form.email.label(class="form-control-label") }}
-                    
+
                     {% if form.email.errors %}
                         {{ form.email(class="form-control form-control-lg is-invalid") }}
                         <div class="invalid-feedback">
@@ -56,11 +58,15 @@
                     {% endif %}
                 </div>
                 <div class="form-group">
-                    <a href="{{ url_for('users.link_mobile_phone') }}"><button type="button" class="btn btn-primary">Link mobile phone number to my account</button></a>
+                    <a href="{{ url_for('users.link_mobile_phone') }}">
+                        <button type="button" class="btn btn-primary">Link
+                            mobile phone number to my account
+                        </button>
+                    </a>
                 </div>
             </fieldset>
             <div class="form-group">
-                {{ form.submit(class="btn btn-outline-info") }}  
+                {{ form.submit(class="btn btn-outline-info") }}
             </div>
         </form>
     </div>

@@ -3,36 +3,45 @@
 {% block content %}
     {% for post in posts.items %}
         <article class="media content-section">
-            <img class="rounded-circle article-img" src="{{ url_for('static', filename='profile_pics/' + post.author.image_file) }}">
+            <img class="rounded-circle article-img"
+                 src="{{ url_for('static', filename='profile_pics/' + post.author.image_file) }}">
             <div class="media-body">
                 <div class="article-metadata">
-                    <a class="mr-2" href="{{ url_for('users.user_posts', username=post.author.username) }}">{{ post.author.username }}</a>
+                    <a class="mr-2"
+                       href="{{ url_for('users.user_posts', username=post.author.username) }}">{{ post.author.username }}</a>
                     <small class="text-muted">{{ post.date_posted.strftime('%Y-%m-%d') }}</small>
                 </div>
-                <h2><a class="article-title" href="{{ url_for('posts.post', post_id = post.id) }}">{{ post.title }}</a></h2>
+                <h2><a class="article-title"
+                       href="{{ url_for('posts.post', post_id = post.id) }}">{{ post.title }}</a>
+                </h2>
                 <p class="article-content">{{ post.content }}</p>
                 {% if post.image_file %}
-                <img src="{{ url_for('static', filename='post_image/' + post.image_file) }}" class="img-fluid" alt="Responsive image">
+                    <img src="{{ url_for('static', filename='post_image/' + post.image_file) }}"
+                         class="img-fluid" alt="Responsive image">
                 {% else %}
 
                 {% endif %}
                 {% if post.number_of_likes() %}
-                    <p><em>This post has been liked <b>{{ post.number_of_likes() }}</b> times.</em></p>
+                    <p><em>This post has been liked
+                        <b>{{ post.number_of_likes() }}</b> times.</em></p>
                 {% else %}
                     <p><em>This post has not been liked yet. Like it!</em></p>
                 {% endif %}
                 <div class="float-right">
                     {% if current_user.is_authenticated %}
-                        <a href="{{ url_for('posts.post', post_id = post.id) }}">Comment this post</a>
+                        <a href="{{ url_for('posts.post', post_id = post.id) }}">Comment
+                            this post</a>
                         {% if current_user.has_liked_post(post) %}
-                            <a href=" {{ url_for('users.like_action', post_id = post.id, action = 'dislike') }} "><img src="{{ url_for('static', filename='icons/dislike.svg') }}">
+                            <a href=" {{ url_for('users.like_action', post_id = post.id, action = 'dislike') }} "><img
+                                    src="{{ url_for('static', filename='icons/dislike.svg') }}">
                             </a>
                         {% else %}
-                            <a href=" {{ url_for('users.like_action', post_id = post.id, action = 'like') }} "><img src="{{ url_for('static', filename='icons/like.svg') }}">
+                            <a href=" {{ url_for('users.like_action', post_id = post.id, action = 'like') }} "><img
+                                    src="{{ url_for('static', filename='icons/like.svg') }}">
                             </a>
                         {% endif %}
                     {% else %}
-                    You need to login to leave comment and like posts!
+                        You need to login to leave comment and like posts!
                     {% endif %}
                 </div>
             </div>
@@ -41,9 +50,11 @@
     {% for page_num in posts.iter_pages(left_edge=1, right_edge=1, left_current=1, right_current=2) %}
         {% if page_num %}
             {% if posts.page == page_num %}
-                <a class="btn btn-info mb-4" href="{{ url_for('main.home', page=page_num) }}">{{ page_num }}</a>
+                <a class="btn btn-info mb-4"
+                   href="{{ url_for('main.home', page=page_num) }}">{{ page_num }}</a>
             {% else %}
-                <a class="btn btn-outline-info mb-4" href="{{ url_for('main.home', page=page_num) }}">{{ page_num }}</a>
+                <a class="btn btn-outline-info mb-4"
+                   href="{{ url_for('main.home', page=page_num) }}">{{ page_num }}</a>
             {% endif %}
         {% else %}
             ...

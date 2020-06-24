@@ -2,36 +2,38 @@
 
 {% block content %}
     <article class="media content-section">
-        <img class="rounded-circle article-img" src="{{ url_for('static', filename='profile_pics/' + current_user.image_file) }}">
+        <img class="rounded-circle article-img"
+             src="{{ url_for('static', filename='profile_pics/' + current_user.image_file) }}">
         <div class="media-body">
             <div class="article-metadata">
-                <a class="mr-2" href="{{ url_for('users.user_posts', username=current_user.username) }}">{{ current_user.username }}</a>
+                <a class="mr-2"
+                   href="{{ url_for('users.user_posts', username=current_user.username) }}">{{ current_user.username }}</a>
                 <small class="text-muted">{{ comment.date_commented.strftime('%Y-%m-%d') }}</small>
             </div>
             <form method="POST" action="">
-            {{ form.hidden_tag() }}
-            <fieldset class="form-group">
+                {{ form.hidden_tag() }}
+                <fieldset class="form-group">
+                    <div class="form-group">
+                        {{ form.content.label() }}
+
+                        {% if form.content.errors %}
+                            {{ form.content(class="form-control form-control-lg is-invalid") }}
+                            <div class="invalid-feedback">
+                                {% for error in form.content.errors %}
+                                    <span>{{ error }}</span>
+                                {% endfor %}
+                            </div>
+                        {% else %}
+                            {{ form.content(class="form-control form-control-lg") }}
+                        {% endif %}
+                    </div>
+                </fieldset>
                 <div class="form-group">
-                    {{ form.content.label() }}
-                    
-                    {% if form.content.errors %}
-                        {{ form.content(class="form-control form-control-lg is-invalid") }}
-                        <div class="invalid-feedback">
-                            {% for error in form.content.errors %}
-                                <span>{{ error }}</span>
-                            {% endfor %}
-                        </div>
-                    {% else %}
-                        {{ form.content(class="form-control form-control-lg") }}
-                    {% endif %}
+                    {{ form.update(class="btn btn-outline-info") }}
+                    {{ form.delete(class="btn btn-outline-info") }}
                 </div>
-            </fieldset>
-            <div class="form-group">
-                {{ form.update(class="btn btn-outline-info") }}
-                {{ form.delete(class="btn btn-outline-info") }}    
-            </div>
-        </form>
+            </form>
         </div>
-    </article>    
-    
+    </article>
+
 {% endblock content %}

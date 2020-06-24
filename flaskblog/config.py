@@ -1,7 +1,7 @@
-
 class Config:
-    # empty values is overridden from sensitive_config.cfg file that holds sentitive applicaton config data 
-    # such as username and passwords and will be exluded from version control.
+    # empty values are overridden from sensitive_config.cfg file that holds
+    # sensitive application config data such as username and passwords
+    # and this config file is excluded from version control.
     SECRET_KEY = ""
     SQLALCHEMY_DATABASE_URI = ""
     SQLALCHEMY_TRACK_MODIFICATIONS = False
@@ -20,4 +20,3 @@ class TestConfig(Config):
     TESTING = True
     WTF_CSRF_ENABLED = False
     SQLALCHEMY_DATABASE_URI = 'sqlite:///:memory:'
-

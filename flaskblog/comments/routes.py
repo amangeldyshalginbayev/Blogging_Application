@@ -2,10 +2,8 @@ from flask import (render_template, url_for, flash,
                    redirect, request, abort, Blueprint)
 from flask_login import current_user, login_required
 from flaskblog import db
-from flaskblog.models import Post, Comment
-from flaskblog.comments.forms import CommentForm, UpdateCommentForm
-
-
+from flaskblog.models import Comment
+from flaskblog.comments.forms import UpdateCommentForm
 
 comments = Blueprint('comments', __name__)
 
@@ -32,9 +30,4 @@ def update_delete_comment(comment_id):
     elif request.method == 'GET':
         form.content.data = comment.content
 
-    return render_template("comments/comment.html", comment = comment, form = form)
-
-
-
-
-
+    return render_template("comments/comment.html", comment=comment, form=form)
