@@ -2,7 +2,7 @@ from flask import (render_template, url_for, flash,
                    redirect, request, abort, Blueprint)
 from flask_login import current_user, login_required
 from flaskblog import db
-from flaskblog.models import Post, Comment
+from flaskblog.models import Post, Comment, PostLike
 from flaskblog.posts.forms import PostForm
 from flaskblog.comments.forms import CommentForm
 from flaskblog.users.utils import save_picture, remove_picture
@@ -87,11 +87,17 @@ def delete_post(post_id):
     post = Post.query.get_or_404(post_id)
     if post.author != current_user:
         abort(403)
+
+    # before deleting the post, delete its comments
+    Comment.query.filter_by(post_id=post.id).delete()
+
+    # before deleting the post, delete its likes
+    PostLike.query.filter_by(post_id=post.id).delete()
+
     db.session.delete(post)
     db.session.commit()
     flash('Your post has been deleted!', 'success')
     return redirect(url_for('main.home'))
-
 
 
 
