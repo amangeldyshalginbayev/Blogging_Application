@@ -6,4 +6,4 @@ venv
 *.jpeg
 *.png
 !flaskblog/static/profile_pics/default.jpg
-sensitive_config.cfg
+development_config.cfg

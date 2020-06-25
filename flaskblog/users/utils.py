@@ -46,8 +46,7 @@ def send_activation_email(user):
     token = user.get_token()
     msg = Message('Account activation. Do not reply to this email',
                   recipients=[user.email])
-    msg.body = f'''Hi! Please visit the following link to activate 
-your account:
+    msg.body = f'''Hi! Please visit the following link to activate your account:
 {url_for('users.activate_account', token=token, _external=True)}
 
 If you did not register an account in our service then simply ignore this email.
