@@ -11,6 +11,8 @@ from flaskblog.users.utils import (save_picture, remove_picture,
                                    send_reset_email, send_activation_email)
 from flaskblog.users.messente_messaging import send_sms_pin
 
+import traceback
+
 users = Blueprint('users', __name__)
 
 
@@ -29,8 +31,8 @@ def register():
         try:
             send_activation_email(user)
         except Exception:
-            flash('We were not able to deliver email to you. Try again.',
-                  'danger')
+            tb = traceback.format_exc()
+            flash(tb,'danger')
             db.session.delete(user)
             db.session.commit()
         else:
