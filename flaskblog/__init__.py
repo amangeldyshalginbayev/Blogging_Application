@@ -5,6 +5,7 @@ from flask_bcrypt import Bcrypt
 from flask_login import LoginManager
 from flask_mail import Mail
 from flaskblog.config import Config, TestConfig
+from flaskblog.db import init_db_command
 
 db = SQLAlchemy()
 bcrypt = Bcrypt()
@@ -37,6 +38,8 @@ def create_app():
     app.register_blueprint(posts)
     app.register_blueprint(comments)
     app.register_blueprint(errors)
+
+    app.cli.add_command(init_db_command)
 
     return app
 
