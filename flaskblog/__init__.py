@@ -5,7 +5,8 @@ from flask_bcrypt import Bcrypt
 from flask_login import LoginManager
 from flask_mail import Mail
 from flaskblog.config import Config, TestConfig
-from flaskblog.db import init_db_command
+import click
+from flask.cli import with_appcontext
 
 db = SQLAlchemy()
 bcrypt = Bcrypt()
@@ -42,6 +43,17 @@ def create_app():
     app.cli.add_command(init_db_command)
 
     return app
+
+
+@click.command('init-db')
+@with_appcontext
+def init_db_command():
+    """This function is used only once from command line for initial
+    database setup when configuring the app in new environment
+    """
+    with create_app().app_context():
+        db.create_all()
+    click.echo('Initialized the database.')
 
 
 def create_test_app():
