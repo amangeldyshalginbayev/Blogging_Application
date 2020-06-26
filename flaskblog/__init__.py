@@ -1,5 +1,4 @@
 from flask import Flask
-from whitenoise import WhiteNoise
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 from flask_bcrypt import Bcrypt
@@ -41,18 +40,6 @@ def create_app():
     app.register_blueprint(comments)
     app.register_blueprint(errors)
 
-    app.wsgi_app = WhiteNoise(app.wsgi_app)
-
-    app_static_folders = (
-        'static/'
-        'static/icons/',
-        'static/post_image/',
-        'static/profile_pics/'
-    )
-
-    for static in app_static_folders:
-        app.wsgi_app.add_files(static)
-
     app.cli.add_command(init_db_command)
     app.cli.add_command(drop_db_command)
 
@@ -68,6 +55,7 @@ def init_db_command():
     with create_app().app_context():
         db.create_all()
     click.echo('Initialized the database.')
+
 
 @click.command('drop-db')
 @with_appcontext
