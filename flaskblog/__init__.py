@@ -54,6 +54,7 @@ def create_app():
         app.wsgi_app.add_files(static)
 
     app.cli.add_command(init_db_command)
+    app.cli.add_command(drop_db_command)
 
     return app
 
@@ -67,6 +68,15 @@ def init_db_command():
     with create_app().app_context():
         db.create_all()
     click.echo('Initialized the database.')
+
+@click.command('drop-db')
+@with_appcontext
+def drop_db_command():
+    """This function is used to drop database from command line
+    """
+    with create_app().app_context():
+        db.drop_all()
+    click.echo('Dropped the database.')
 
 
 def create_test_app():
