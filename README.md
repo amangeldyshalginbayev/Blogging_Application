@@ -37,6 +37,7 @@ For demonstration purposes you can use this account. Email: geldy@yandex.kz, Pas
 * Flask-Login - user session management for Flask 
 * Flask-WTF - simplifies working with forms by integrating Flask and WTForms
 * Flask-Email - sending emails from Flask application
+* whitenoise - static file serving for Python web apps
 * Pillow - for image resizing
 * gunicorn - Python WSGI HTTP Server
 * ItsDangerous - securely signs data to ensure its integrity
@@ -45,6 +46,9 @@ For demonstration purposes you can use this account. Email: geldy@yandex.kz, Pas
 
 ## Database
 For local development and testing **SQLite** database management system is used. In production **PostgreSQL** database management system is used provided by Heroku.
+
+## Static file serving
+As Heroku ephemeral filesystem does not support static file storage, files lost whenever a dyno container restarts or is replaced. WhiteNoise package used for serving static images files and .css files. Documentation for WhiteNoise can be found here: https://pypi.org/project/whitenoise/
 
 ## Installation
 
