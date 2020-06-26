@@ -46,13 +46,13 @@ For local development and testing **SQLite** database management system is used.
 
 ## Installation
 
-To run the applicatin in local environment. Make directory flaskblog [pip](https://pip.pypa.io/en/stable/) to install foobar.
+To run the applicatin in local environment. Create new directory:
 
 ```bash
-$ mkdir flaskblog
-$ cd flaskblog
+$ mkdir myproject
+$ cd myproject
 ```
-Create virtual environment with built in python venv module and activate it
+Create virtual environment with built-in python venv module and activate it:
 ```bash
 $ python3 -m venv venv
 $ source venv/bin/activate
@@ -65,13 +65,13 @@ Install all dependencies of the project via pip:
 ```bash
 (venv)$ pip install requirements.txt
 ```
-You can check all installed dependencies via command
+You can check all installed dependencies via command:
 ```bash
 (venv)$ pip list
 ```
 To run the project you need to create development_config.cfg file inside flaskblog package with the following values:
 
-flaskblog/development_config.cfg
+myproject/flaskblog/development_config.cfg
 ```bash
 SECRET_KEY=''
 SQLALCHEMY_DATABASE_URI='sqlite:///site.db'
@@ -87,11 +87,11 @@ MESSENTE_API_PASSWORD=''
 ```
 For security reasons, this file excluded from version control and used only for local development and testing. After creating this configuration file and filling all values, you need to initialize database. For creating SQLite database and all tables flask command line function has been implemented. Run the following command in the root directory of the project:
 ```bash
-(venv)flaskblog$ flask init-db 
+(venv)myproject$ flask init-db 
 ```
 After running this command, SQLite database file is created called site.db under flaskblog folder. Now you can run your application with the following command:
 ```bash
-(venv)flaskblog$ flask run
+(venv)myproject$ flask run
 ```
 You should see that the application is running:
 ```bash
@@ -106,8 +106,8 @@ You should see that the application is running:
 ## Tests
 To run unit tests type the following command from application root folder or under tests folder:
 ```python
-(venv)flaskblog$ pytest
-or
+(venv)myproject$ pytest
+ or
 (venv)tests$ pytest
 ```
 ## Contributing
