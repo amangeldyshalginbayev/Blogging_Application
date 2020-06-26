@@ -45,9 +45,9 @@ def create_app():
 
     app_static_folders = (
         'static/'
-        'static/icons',
-        'static/post_image',
-        'static/profile_pics'
+        'static/icons/',
+        'static/post_image/',
+        'static/profile_pics/'
     )
 
     for static in app_static_folders:

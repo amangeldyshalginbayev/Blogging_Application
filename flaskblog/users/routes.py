@@ -29,8 +29,8 @@ def register():
         db.session.commit()
         try:
             send_activation_email(user)
-        except Exception as exc:
-            flash("We were not able to deliver email to you. Try again later" + str(exc),'danger')
+        except Exception:
+            flash("We were not able to deliver email to you. Try again later",'danger')
             db.session.delete(user)
             db.session.commit()
         else:
