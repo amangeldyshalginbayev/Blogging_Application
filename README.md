@@ -25,6 +25,8 @@ This repository created for learning Flask framework by building blogging web ap
 * Update
 * Delete
 
+For demonstration purposes you can use this account. Email: geldy@yandex.kz, Password: Letmein1!
+
 ## Key Python packages used
 * Flask: micro-framework for web application development
 * messente-api - for sending sms pin codes from Flask application
@@ -78,7 +80,8 @@ SQLALCHEMY_DATABASE_URI='sqlite:///site.db'
 SQLALCHEMY_TRACK_MODIFICATIONS = False
 MAIL_SERVER=''
 MAIL_PORT=
-MAIL_USE_TLS=
+MAIL_USE_TLS=False
+MAIL_USE_SSL=True
 MAIL_USERNAME=''
 MAIL_PASSWORD=''
 MAIL_DEFAULT_SENDER =('Flask Blog', 'flaskblog-noreply@demo.com')
