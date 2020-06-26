@@ -1,4 +1,5 @@
 from flask import Flask
+from whitenoise import WhiteNoise
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 from flask_bcrypt import Bcrypt
@@ -7,7 +8,6 @@ from flask_mail import Mail
 from flaskblog.config import Config, TestConfig
 import click
 from flask.cli import with_appcontext
-
 
 db = SQLAlchemy()
 bcrypt = Bcrypt()
@@ -40,6 +40,17 @@ def create_app():
     app.register_blueprint(posts)
     app.register_blueprint(comments)
     app.register_blueprint(errors)
+
+    app.wsgi_app = WhiteNoise(app.wsgi_app)
+
+    app_static_folders = (
+        'static/icons/',
+        'static/post_image/',
+        'static/profile_pics/'
+    )
+
+    for static in app_static_folders:
+        app.wsgi_app.add_files(static)
 
     app.cli.add_command(init_db_command)
 
