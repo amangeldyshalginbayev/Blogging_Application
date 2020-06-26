@@ -44,6 +44,7 @@ def create_app():
     app.wsgi_app = WhiteNoise(app.wsgi_app)
 
     app_static_folders = (
+        'static/'
         'static/icons/',
         'static/post_image/',
         'static/profile_pics/'
