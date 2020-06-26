@@ -30,8 +30,7 @@ def register():
         try:
             send_activation_email(user)
         except Exception:
-            tb = traceback.format_exc()
-            flash(tb,'danger')
+            flash("We were not able to deliver email to you. Try again later",'danger')
             db.session.delete(user)
             db.session.commit()
         else:
