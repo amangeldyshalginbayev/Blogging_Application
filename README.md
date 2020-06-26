@@ -11,7 +11,7 @@ This repository created for learning Flask framework by building blogging web ap
 * Upload avatar image
 * Change username and password
 * Resetting your password via email
-* Link mobile phone number to your account. Currently, implemented only 3 countires: United Kingdom, Kazakhstan, Estonia. SMS PIN code sent to your number via [Messente-API](https://messente.com/documentation/omnichannel-api). You can send sms from your Flask application using HTTP all around the world.
+* Link mobile phone number to your account. Currently, implemented only 3 countires: United Kingdom, Kazakhstan, Estonia. SMS PIN code sent to your number via [Messente-API](https://messente.com/documentation/omnichannel-api). You can send sms from your Flask application using HTTP all around the world using this service.
 
 # Posts
 * Create
@@ -75,18 +75,18 @@ To run the project you need to create development_config.cfg file inside flaskbl
 
 myproject/flaskblog/development_config.cfg
 ```bash
-SECRET_KEY=''
+SECRET_KEY='top-secret'
 SQLALCHEMY_DATABASE_URI='sqlite:///site.db'
 SQLALCHEMY_TRACK_MODIFICATIONS = False
-MAIL_SERVER=''
-MAIL_PORT=
+MAIL_SERVER='smtp.googlemail.com'
+MAIL_PORT=587
 MAIL_USE_TLS=False
 MAIL_USE_SSL=True
-MAIL_USERNAME=''
-MAIL_PASSWORD=''
+MAIL_USERNAME='gmail username'
+MAIL_PASSWORD='gmail password'
 MAIL_DEFAULT_SENDER =('Flask Blog', 'flaskblog-noreply@demo.com')
-MESSENTE_API_USERNAME=''
-MESSENTE_API_PASSWORD=''
+MESSENTE_API_USERNAME='messente api username'
+MESSENTE_API_PASSWORD='messente api password'
 ```
 For security reasons, this file excluded from version control and used only for local development and testing. After creating this configuration file and filling all values, you need to initialize database. For creating SQLite database and all tables flask command line function has been implemented. Run the following command in the root directory of the project:
 ```bash
