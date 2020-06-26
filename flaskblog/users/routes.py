@@ -10,7 +10,7 @@ from flaskblog.users.forms import (RegistrationForm, LoginForm,
 from flaskblog.users.utils import (save_picture, remove_picture,
                                    send_reset_email, send_activation_email)
 from flaskblog.users.messente_messaging import send_sms_pin
-import traceback
+
 
 users = Blueprint('users', __name__)
 
