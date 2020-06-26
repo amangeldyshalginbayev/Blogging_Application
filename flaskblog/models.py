@@ -17,7 +17,7 @@ class User(db.Model, UserMixin):
     username = db.Column(db.String(20), unique=True, nullable=False)
     email = db.Column(db.String(120), unique=True, nullable=False)
     mobile_phone = db.Column(db.String(20))
-    image_file = db.Column(db.String(20), nullable=False,
+    image_file = db.Column(db.String(100), nullable=False,
                            default='default.jpg')
     password = db.Column(db.String(60), nullable=False)
     posts = db.relationship('Post', backref='author', lazy=True)
@@ -63,7 +63,7 @@ class Post(db.Model):
                             default=datetime.utcnow)
     content = db.Column(db.Text, nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
-    image_file = db.Column(db.String(20))
+    image_file = db.Column(db.String(100))
     comments = db.relationship('Comment', backref='post', lazy=True)
     likes = db.relationship('PostLike', backref='post', lazy='dynamic')
 
