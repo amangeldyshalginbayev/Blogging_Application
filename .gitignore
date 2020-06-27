@@ -6,4 +6,3 @@ venv
 *.jpeg
 *.png
 !flaskblog/static/profile_pics/default.jpg
-development_config.cfg
