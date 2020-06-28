@@ -11,7 +11,6 @@ from flaskblog.users.utils import (save_picture, remove_picture,
                                    send_reset_email, send_activation_email)
 from flaskblog.users.messente_messaging import send_sms_pin
 
-
 users = Blueprint('users', __name__)
 
 
@@ -32,7 +31,8 @@ def register():
                   'is sent to your email', 'success')
             return redirect(url_for('users.login'))
         else:
-            flash("We were not able to deliver email to you. Try again.",'danger')
+            flash("We were not able to deliver email to you. Try again.",
+                  'danger')
             db.session.delete(user)
             db.session.commit()
             return redirect(url_for('users.register'))

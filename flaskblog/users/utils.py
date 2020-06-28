@@ -3,7 +3,6 @@ import secrets
 import re
 from PIL import Image
 from flask import url_for, current_app
-from flaskblog import mail
 import yagmail
 
 
@@ -31,11 +30,11 @@ def remove_picture(picture_name, directory='static/profile_pics'):
         os.remove(picture_path)
 
 
-def send_email(theme, message, recipient:)
-    yag = yagmail.SMTP(current_app.config["GMAIL_USERNAME"], 
-                       current_app.config["GMAIL_PASSWORD"])    
+def send_email(theme, message, recipient):
+    yag = yagmail.SMTP(current_app.config["GMAIL_USERNAME"],
+                       current_app.config["GMAIL_PASSWORD"])
     try:
-        yag.send(subject = theme, contents = message, to = recipient)
+        yag.send(subject=theme, contents=message, to=recipient)
     except Exception as exc:
         print(exc)
     else:
@@ -56,7 +55,7 @@ regards
 Amangeldy Shalginbayev
 '''
     recipient = user.email
-    return send_email(theme = theme, message = message, recipient = recipient)
+    return send_email(theme=theme, message=message, recipient=recipient)
 
 
 def send_activation_email(user):
@@ -71,7 +70,7 @@ regards
 Amangeldy Shalginbayev
 '''
     recipient = user.email
-    return send_email(theme = theme, message = message, recipient = recipient)
+    return send_email(theme=theme, message=message, recipient=recipient)
 
 
 def is_password_valid(password):
