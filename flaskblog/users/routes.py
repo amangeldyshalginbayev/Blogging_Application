@@ -27,16 +27,15 @@ def register():
                     password=hashed_password)
         db.session.add(user)
         db.session.commit()
-        try:
-            send_activation_email(user)
-        except Exception as exception:
-            flash("We were not able to deliver email to you. Try again later",'danger')
-            db.session.delete(user)
-            db.session.commit()
-        else:
+        if send_activation_email(user):
             flash('Your account has been created! Account activation link '
                   'is sent to your email', 'success')
-        return redirect(url_for('users.login'))
+            return redirect(url_for('users.login'))
+        else:
+            flash("We were not able to deliver email to you. Try again.",'danger')
+            db.session.delete(user)
+            db.session.commit()
+            return redirect(url_for('users.register'))
     return render_template("users/register.html", title="Register", form=form)
 
 
@@ -115,11 +114,17 @@ def reset_request():
     form = RequestResetForm()
     if form.validate_on_submit():
         user = User.query.filter_by(email=form.email.data).first()
-        send_reset_email(user)
-        flash(
-            'An email has been sent with instructions to reset your password.',
-            'info')
-        return redirect(url_for('users.login'))
+        if send_reset_email(user):
+            flash(
+                'An email has been sent with instructions to reset your password.',
+                'info')
+            return redirect(url_for('users.login'))
+        else:
+            flash(
+                'We could not deliver email with reset instructions to you.'
+                ' Try again later.',
+                'danger')
+            return redirect(url_for('users.reset_request'))
     return render_template("users/reset_request.html", title="Reset Password",
                            form=form)
 

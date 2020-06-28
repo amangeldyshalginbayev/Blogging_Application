@@ -3,8 +3,8 @@ import secrets
 import re
 from PIL import Image
 from flask import url_for, current_app
-from flask_mail import Message
 from flaskblog import mail
+import yagmail
 
 
 def save_picture(form_picture, directory='static/profile_pics'):
@@ -31,28 +31,47 @@ def remove_picture(picture_name, directory='static/profile_pics'):
         os.remove(picture_path)
 
 
+def send_email(theme, message, recipient:)
+    yag = yagmail.SMTP(current_app.config["GMAIL_USERNAME"], 
+                       current_app.config["GMAIL_PASSWORD"])    
+    try:
+        yag.send(subject = theme, contents = message, to = recipient)
+    except Exception as exc:
+        print(exc)
+    else:
+        return True
+    finally:
+        yag.close()
+
+
 def send_reset_email(user):
+    theme = 'Password Reset Request'
     token = user.get_token()
-    msg = Message('Password Reset Request. Do not reply to this email',
-                  recipients=[user.email])
-    msg.body = f'''Hi! To reset your password, visit the following link:
+    message = f'''Hi! To reset your password, visit the following link:
 {url_for('users.reset_token', token=token, _external=True)}
 
-If you did not make this request then simply ignore this email and no changes will be made.
+If you did not make this request, then simply ignore this email and no changes will be made.
+
+regards
+Amangeldy Shalginbayev
 '''
-    mail.send(msg)
+    recipient = user.email
+    return send_email(theme = theme, message = message, recipient = recipient)
 
 
 def send_activation_email(user):
+    theme = 'Account activation link'
     token = user.get_token()
-    msg = Message('Account activation. Do not reply to this email',
-                  recipients=[user.email])
-    msg.body = f'''Hi! Please visit the following link to activate your account:
+    message = f'''Hi! Please visit the following link to activate your account:
 {url_for('users.activate_account', token=token, _external=True)}
 
-If you did not register an account in our service then simply ignore this email.
+If you did not register an account in our service, then simply ignore this email.
+
+regards
+Amangeldy Shalginbayev
 '''
-    mail.send(msg)
+    recipient = user.email
+    return send_email(theme = theme, message = message, recipient = recipient)
 
 
 def is_password_valid(password):

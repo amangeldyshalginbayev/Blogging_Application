@@ -1,10 +1,15 @@
 __pycache__
 .idea/
-myprojectenv
 venv
 *.db
 *.jpg
 *.jpeg
 *.png
 !flaskblog/static/profile_pics/default.jpg
+
+# config file for local development
+development_config.cfg
+
+# files in server repository
+myprojectenv
 myproject.soc

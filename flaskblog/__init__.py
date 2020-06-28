@@ -1,31 +1,31 @@
 from flask import Flask
+import click
+from flask.cli import with_appcontext
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 from flask_bcrypt import Bcrypt
 from flask_login import LoginManager
-from flask_mail import Mail
 from flaskblog.config import Config, TestConfig
-import click
-from flask.cli import with_appcontext
+
 
 db = SQLAlchemy()
 bcrypt = Bcrypt()
 login_manager = LoginManager()
 login_manager.login_view = 'users.login'
 login_manager.login_message_category = 'info'
-mail = Mail()
 migrate = Migrate()
 
 
 def create_app():
     app = Flask(__name__)
-    # app.config.from_object(Config)
+    # in production all config values are loaded from Config class
+    # development_config.cfg is used only for local development
+    app.config.from_object(Config)
     app.config.from_pyfile('development_config.cfg', silent=True)
 
     db.init_app(app)
     bcrypt.init_app(app)
     login_manager.init_app(app)
-    mail.init_app(app)
     migrate.init_app(app, db)
 
     from flaskblog.main.routes import main
@@ -74,7 +74,6 @@ def create_test_app():
     db.init_app(app)
     bcrypt.init_app(app)
     login_manager.init_app(app)
-    mail.init_app(app)
     migrate.init_app(app, db)
 
     from flaskblog.main.routes import main

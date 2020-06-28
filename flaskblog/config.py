@@ -10,15 +10,10 @@ class Config:
     production and used only for local development.
     """
     SECRET_KEY = os.environ.get("SECRET_KEY")
-    SQLALCHEMY_DATABASE_URI = os.environ.get("DATABASE_URL")
+    SQLALCHEMY_DATABASE_URI = os.environ.get("SQLALCHEMY_DATABASE_URI")
     SQLALCHEMY_TRACK_MODIFICATIONS = os.environ.get("SQLALCHEMY_TRACK_MODIFICATIONS")
-    MAIL_SERVER = os.environ.get("MAIL_SERVER")
-    MAIL_PORT = os.environ.get("MAIL_PORT")
-    MAIL_USE_TLS = os.environ.get("MAIL_USE_TLS")
-    MAIL_USE_SSL = os.environ.get("MAIL_USE_SSL")
-    MAIL_USERNAME = os.environ.get("MAIL_USERNAME")
-    MAIL_PASSWORD = os.environ.get("MAIL_PASSWORD")
-    MAIL_DEFAULT_SENDER = ('Flask Blog', 'flaskblog-noreply@demo.com')
+    GMAIL_USERNAME = os.environ.get("GMAIL_USERNAME")
+    GMAIL_PASSWORD = os.environ.get("GMAIL_PASSWORD")
     MESSENTE_API_USERNAME = os.environ.get("MESSENTE_API_USERNAME")
     MESSENTE_API_PASSWORD = os.environ.get("MESSENTE_API_PASSWORD")
 
