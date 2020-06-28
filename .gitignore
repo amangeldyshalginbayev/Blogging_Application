@@ -8,7 +8,7 @@ venv
 !flaskblog/static/profile_pics/default.jpg
 
 # config file for local development
-development_config.cfg
+flaskblog/development_config.cfg
 
 # files in server repository
 myprojectenv
