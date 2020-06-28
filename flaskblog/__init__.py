@@ -19,7 +19,7 @@ migrate = Migrate()
 
 def create_app():
     app = Flask(__name__)
-    app.config.from_object(Config)
+    # app.config.from_object(Config)
     app.config.from_pyfile('development_config.cfg', silent=True)
 
     db.init_app(app)
