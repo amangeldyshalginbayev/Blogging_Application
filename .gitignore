@@ -7,3 +7,4 @@ venv
 *.jpeg
 *.png
 !flaskblog/static/profile_pics/default.jpg
+myproject.soc
