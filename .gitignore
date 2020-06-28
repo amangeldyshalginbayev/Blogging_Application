@@ -6,10 +6,6 @@ venv
 *.jpeg
 *.png
 !flaskblog/static/profile_pics/default.jpg
-
-# config file for local development
-flaskblog/development_config.cfg
-
-# files in server repository
+development_config.cfg
 myprojectenv
 myproject.soc
