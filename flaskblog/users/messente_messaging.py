@@ -1,9 +1,9 @@
 from random import randint
 from pprint import pprint
+from flask import current_app
 from messente_api import (OmnimessageApi, SMS, Omnimessage, Configuration,
                           ApiClient)
 from messente_api.rest import ApiException
-from flask import current_app
 
 
 def send_sms_pin(recipient_phone_number):

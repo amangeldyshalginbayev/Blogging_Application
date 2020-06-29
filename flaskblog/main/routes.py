@@ -16,3 +16,14 @@ def home():
 @main.route('/about')
 def about():
     return render_template("main/about.html", title="About")
+
+
+@main.route('/mycv')
+def mycv():
+    return render_template("main/mycv.html", title="My CV")
+
+
+@main.route('/article/working_with_remote_server')
+def working_with_remote_server():
+    return render_template("main/articles/working_with_remote_server.html",
+                           title="Working_with_remote_server")

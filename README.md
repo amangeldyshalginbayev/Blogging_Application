@@ -35,8 +35,9 @@ This repository created for learning Flask framework by building blogging web ap
 For demonstration purposes you can use this account I already created. Email: geldy2016@yandex.kz, Password: Letmein1!
 
 ## Key Python packages used
+The application developed and tested in **Python3.8**.
 * Flask - micro-framework for web application development
-* messente-api - for sending sms pin codes from Flask application
+* messente-api - for sending sms pin codes
 * Jinga2 - templating engine
 * SQLAlchemy - ORM (Object Relational Mapper)
 * Flask-Migrate - SQLAlchemy database migrations for Flask using Alembic.
@@ -61,7 +62,7 @@ To run the applicatin in local environment. Create new directory:
 $ mkdir myproject
 $ cd myproject
 ```
-Create virtual environment with built-in python venv module and activate it:
+Create virtual environment with built-in python3 venv module and activate it:
 ```bash
 $ python3 -m venv venv
 $ source venv/bin/activate

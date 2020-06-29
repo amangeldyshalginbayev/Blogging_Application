@@ -65,10 +65,10 @@ def update_post(post_id):
         if form.image.data:
             post_image = save_picture(form.image.data,
                                       directory='static/post_image')
-            # if post alredy has image, remove it
+            # if post already has image, remove it
             if post.image_file:
                 old_image = post.image_file
-                remove_picture(old_image, directory='static/post_image')                
+                remove_picture(old_image, directory='static/post_image')
             post.image_file = post_image
 
         post.title = form.title.data

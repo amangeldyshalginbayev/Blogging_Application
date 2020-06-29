@@ -1,6 +1,3 @@
-import os
-
-
 class TestConfig():
     SECRET_KEY = "testing"
     TESTING = True

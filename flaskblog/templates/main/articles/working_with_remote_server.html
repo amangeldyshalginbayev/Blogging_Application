@@ -1,0 +1,97 @@
+{% extends "layout.html" %}
+
+{% block content %}
+
+    <h1>How to deploy your code to a remote server using GIT</h1>
+
+    <p>In this article I will show main steps for setting remote repository in
+        a remote server using git and pushing your code to remote
+        repository</p>
+
+    <b>1. Login to remote server</b>
+    <p>Assuming that you already configured SSH access to your remote server,
+        open your terminal and login to your remote server using the following
+        command: </p>
+    <code class="terminal-code"> ssh username@server_ip </code>
+    <br>
+    <br>
+    <b><p>2. Git installation in the server</p></b>
+    <code>
+        sudo apt-get update
+        <br>
+        sudo apt-get install git
+    </code>
+    <br>
+    <br>
+    <b><p>3. Create a folder for your project files in the server</p></b>
+    <code>mkdir myproject</code>
+    <br>
+    <br>
+    <p><b>4. Initialize a git repository in your server<br></b>
+        Inside your server create a folder to host your remote repository. You
+        can
+        call your repository name myproject.git so that it can be easily seen
+        that
+        this repository is for <em>myproject</em>.
+    </p>
+    <code>mkdir -p repo/myproject.git</code>
+    <p><br>Now, cd to <em>repo/myproject.git</em> and initialize your git
+        repository:</p>
+    <code>git init --bare</code>
+    <p><br>Now you have a <a
+            href="https://git-scm.com/book/en/v2/Git-on-the-Server-Getting-Git-on-a-Server">bare</a>
+        repository. Bare means a repository that doesn’t contain a working
+        directory and used in remote servers.</p>
+    <b>5. Create a hook</b>
+    <p>Git has a mechanism that it can call a script when some actions happen.
+        It is called <a
+                href="https://git-scm.com/book/en/v2/Customizing-Git-Git-Hooks">hook.</a>
+        We will use post receive hook, which called when our repository has
+        received pushed code.</p>
+    <code>
+        cd hooks
+        <br>
+        nano post-receive
+        <br>
+    </code>
+    <p><br>Inside this file we need to tell git where to put pushed files</p>
+    <code>
+        #!/bin/sh
+        <br>
+        git --work-tree=path_to_myproject_folder
+        --git-dir=path_to_myproject.git_directory checkout -f name_of_branch
+    </code>
+    <p><br>Here, path_to_myproject_folder is the full absolute path where you
+        store your project files, path_to_myproject.git_directory is the full
+        absolute path of our bare git repository. Save and quit the editor.</p>
+    <b>6. Make the script executable</b>
+    <p>To give this script executable permissions, we need to run the following
+        command:</p>
+    <code>
+        chmod +x post-receive
+    </code>
+    <p><br>Our work on the remote servers is done!</p>
+    <b>7. Pushing local code to the remote server</b>
+    <p>Initialialize git repository with the following command:</p>
+    <code>
+        git init
+    </code>
+    <p><br>Add remote repository to your local git repository:<br></p>
+    <code>
+        git remote add name_of_remote_repository
+        ssh://your_username@server_ip_address/path_to_git_directory_in_the_remote_server
+    </code>
+    <p><br>The above command is self explanotary. You need to specify the name
+        for your remote repository, so when you want to push your code into
+        this repository, you need to run the following command: </p>
+    <code>
+        git push name_of_remote_repository
+    </code>
+    <p><br>You can check the list of remote repositories with the following
+        command: </p>
+    <code>
+        git remote -v
+    </code>
+    <p><br><b>Thanks a lot. Happy coding!</b></p>
+
+{% endblock %}
