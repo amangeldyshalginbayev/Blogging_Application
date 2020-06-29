@@ -25,7 +25,7 @@ This repository created for learning Flask framework by building blogging web ap
 * Update
 * Delete
 
-For demonstration purposes you can use this account. Email: geldy@yandex.kz, Password: Letmein1!
+For demonstration purposes you can use this account. Email: geldy2016@yandex.kz, Password: Letmein1!
 
 ## Key Python packages used
 * Flask: micro-framework for web application development

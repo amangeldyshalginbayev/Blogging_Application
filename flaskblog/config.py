@@ -1,23 +1,6 @@
 import os
 
 
-class Config:
-    """This class used for configuration of flask application for development
-    and production environments. For development, config values are loaded from
-    'development_config.cfg' file. This file is ignored by version control.
-    When deploying application to production, config values are loaded from
-    environment variables. 'development_config.cfg' file is not pushed to
-    production and used only for local development.
-    """
-    SECRET_KEY = os.environ.get("SECRET_KEY")
-    SQLALCHEMY_DATABASE_URI = os.environ.get("SQLALCHEMY_DATABASE_URI")
-    SQLALCHEMY_TRACK_MODIFICATIONS = os.environ.get("SQLALCHEMY_TRACK_MODIFICATIONS")
-    GMAIL_USERNAME = os.environ.get("GMAIL_USERNAME")
-    GMAIL_PASSWORD = os.environ.get("GMAIL_PASSWORD")
-    MESSENTE_API_USERNAME = os.environ.get("MESSENTE_API_USERNAME")
-    MESSENTE_API_PASSWORD = os.environ.get("MESSENTE_API_PASSWORD")
-
-
 class TestConfig(Config):
     SECRET_KEY = "testing"
     TESTING = True

@@ -6,8 +6,6 @@ venv
 *.jpeg
 *.png
 !flaskblog/static/profile_pics/default.jpg
-production_config.cfg
-development_config.cfg
+configuration.cfg
 myprojectenv
 myproject.soc
-server_env_variables.txt

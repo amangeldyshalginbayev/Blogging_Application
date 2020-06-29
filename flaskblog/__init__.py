@@ -5,7 +5,7 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 from flask_bcrypt import Bcrypt
 from flask_login import LoginManager
-from flaskblog.config import Config, TestConfig
+from flaskblog.config import TestConfig
 
 
 db = SQLAlchemy()
@@ -18,10 +18,7 @@ migrate = Migrate()
 
 def create_app():
     app = Flask(__name__)
-    # in production all config values are loaded from Config class
-    # development_config.cfg is used only for local development
-    # app.config.from_object(Config)
-    app.config.from_pyfile('development_config.cfg', silent=True)
+    app.config.from_pyfile('configuration.cfg', silent=True)
 
     db.init_app(app)
     bcrypt.init_app(app)
