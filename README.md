@@ -1,26 +1,33 @@
 # Flaskblog
 
-This repository created for learning Flask framework by building blogging web application. The application is deployed to Heroku and can be accessed via this address: https://aman-flask-blog.herokuapp.com.
+This repository created for learning Flask framework by building blogging web application. The application is deployed to DigitalOcean VPS and can be accessed via this IP address: http://178.128.145.253/.
 
-## Key functionalities of the application
+## Technology stack used in production:
+* **Ubuntu 20.04** - VPS server OS
+* **Nginx** - reverse proxy
+* **Gunicorn** - Python WSGI HTTP Server
+* **SQLite** - database engine
+* **Flask** - Python web framework
 
-# Users
-* User registration via email. After registration account activation link is sent to your email, you need to visit this link to activate your account. When trying to login with account that not yet activated, application notifies and sends activation link again to registered email
+# Key functionalities of the application
+
+## Users
+* User registration via email. After registration account activation link sent to your email, you need to visit this link to activate your account. When trying to login with account that not yet activated, application notifies and sends activation link again to registered email
 * Login
 * Logout
-* Upload avatar image
-* Change username and password
+* Upload profile picture
+* Change username and email
 * Resetting your password via email
 * Link mobile phone number to your account. Currently, implemented only 3 countires: United Kingdom, Kazakhstan, Estonia. SMS PIN code sent to your number via [Messente-API](https://messente.com/documentation/omnichannel-api). You can send sms from your Flask application using HTTP all around the world using this service.
 
-# Posts
+## Posts
 * Create
 * Update
 * Delete
 * Like
 * Cancel like
 
-# Comments
+## Comments
 * Create
 * Update
 * Delete
@@ -36,19 +43,15 @@ For demonstration purposes you can use this account. Email: geldy2016@yandex.kz,
 * Flask-Bcrypt - password hashing
 * Flask-Login - user session management for Flask 
 * Flask-WTF - simplifies working with forms by integrating Flask and WTForms
-* Flask-Email - sending emails from Flask application
-* whitenoise - static file serving for Python web apps
+* yagmail - GMAIL/SMTP client for Python
 * Pillow - for image resizing
 * gunicorn - Python WSGI HTTP Server
 * ItsDangerous - securely signs data to ensure its integrity
 * pycodestyle - checking python code for PEP-8
-* pytest - framework for testing Python code 
+* pytest - framework for testing Python code
 
 ## Database
-For local development and testing **SQLite** database management system is used. In production **PostgreSQL** database management system is used provided by Heroku.
-
-## Static file serving
-As Heroku ephemeral filesystem does not support static file storage, files lost whenever a dyno container restarts or is replaced. WhiteNoise package used for serving static images files and .css files. Documentation for WhiteNoise can be found here: https://pypi.org/project/whitenoise/
+For local development and testing **SQLite** database management system is used.
 
 ## Installation
 
@@ -69,26 +72,21 @@ Clone the repository with command:
 ```
 Install all dependencies of the project via pip:
 ```bash
-(venv)$ pip install requirements.txt
+(venv)$ pip install -r requirements.txt
 ```
 You can check all installed dependencies via command:
 ```bash
 (venv)$ pip list
 ```
-To run the project you need to create development_config.cfg file inside flaskblog package with the following values:
+To run the application you need to create configuration.cfg file inside flaskblog package with the following values:
 
-myproject/flaskblog/development_config.cfg
+myproject/flaskblog/configuration.cfg
 ```bash
-SECRET_KEY='top-secret'
+SECRET_KEY='top secret'
 SQLALCHEMY_DATABASE_URI='sqlite:///site.db'
-SQLALCHEMY_TRACK_MODIFICATIONS = False
-MAIL_SERVER='smtp.googlemail.com'
-MAIL_PORT=587
-MAIL_USE_TLS=False
-MAIL_USE_SSL=True
-MAIL_USERNAME='gmail username'
-MAIL_PASSWORD='gmail password'
-MAIL_DEFAULT_SENDER =('Flask Blog', 'flaskblog-noreply@demo.com')
+SQLALCHEMY_TRACK_MODIFICATIONS=False
+GMAIL_USERNAME='gmail username'
+GMAIL_PASSWORD='gmail password'
 MESSENTE_API_USERNAME='messente api username'
 MESSENTE_API_PASSWORD='messente api password'
 ```
