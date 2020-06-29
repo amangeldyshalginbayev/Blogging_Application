@@ -91,6 +91,6 @@ def is_password_valid(password):
 def is_mobile_phone_valid(number):
     is_valid = False
     pattern = r"^\+[1-9]\d{1,14}$"
-    if re.search(pattern, number):
+    if re.search(pattern, number) and len(number) >= 11:
         is_valid = True
     return is_valid
