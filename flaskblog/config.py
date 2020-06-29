@@ -1,7 +1,7 @@
 import os
 
 
-class TestConfig(Config):
+class TestConfig():
     SECRET_KEY = "testing"
     TESTING = True
     WTF_CSRF_ENABLED = False
