@@ -6,6 +6,7 @@ venv
 *.jpeg
 *.png
 !flaskblog/static/profile_pics/default.jpg
+production_config.cfg
 development_config.cfg
 myprojectenv
 myproject.soc

@@ -20,7 +20,7 @@ def create_app():
     app = Flask(__name__)
     # in production all config values are loaded from Config class
     # development_config.cfg is used only for local development
-    app.config.from_object(Config)
+    # app.config.from_object(Config)
     app.config.from_pyfile('development_config.cfg', silent=True)
 
     db.init_app(app)
