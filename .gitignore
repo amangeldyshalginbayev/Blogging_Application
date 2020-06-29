@@ -9,3 +9,4 @@ venv
 development_config.cfg
 myprojectenv
 myproject.soc
+server_env_variables.txt
