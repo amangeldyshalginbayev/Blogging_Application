@@ -18,7 +18,7 @@ This repository created for learning Flask framework by building blogging web ap
 * Upload profile picture
 * Change username and email
 * Resetting your password via email
-* Link mobile phone number to your account. Currently, implemented only 3 countires: United Kingdom, Kazakhstan, Estonia. SMS PIN code sent to your number via [Messente-API](https://messente.com/documentation/omnichannel-api). You can send sms from your Flask application using HTTP all around the world using this service.
+* Link mobile phone number to your account. Currently, implemented only 3 countires: United Kingdom, Kazakhstan, Estonia. SMS PIN code sent to your number via [Messente-API](https://messente.com/documentation/omnichannel-api). You can send sms from your application using HTTP all around the world using this service.
 
 ## Posts
 * Create
@@ -32,10 +32,10 @@ This repository created for learning Flask framework by building blogging web ap
 * Update
 * Delete
 
-For demonstration purposes you can use this account. Email: geldy2016@yandex.kz, Password: Letmein1!
+For demonstration purposes you can use this account I already created. Email: geldy2016@yandex.kz, Password: Letmein1!
 
 ## Key Python packages used
-* Flask: micro-framework for web application development
+* Flask - micro-framework for web application development
 * messente-api - for sending sms pin codes from Flask application
 * Jinga2 - templating engine
 * SQLAlchemy - ORM (Object Relational Mapper)
@@ -78,7 +78,7 @@ You can check all installed dependencies via command:
 ```bash
 (venv)$ pip list
 ```
-To run the application you need to create configuration.cfg file inside flaskblog package with the following values:
+To run the application you need to create [Gmail](https://accounts.google.com/signup/v2/webcreateaccount?flowName=GlifWebSignIn&flowEntry=SignUp) account, [Messente](https://dashboard.messente.com/register) account and get your API keys, fill configuration.cfg file inside flaskblog package with the following values:
 
 myproject/flaskblog/configuration.cfg
 ```bash
