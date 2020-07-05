@@ -212,4 +212,4 @@ def like_action(post_id, action):
         current_user.unlike_post(post)
         db.session.commit()
         flash('You disliked the post!', 'alert alert-warning')
-    return redirect(request.referrer)
+    return redirect(url_for("posts.post", post_id=post_id))
